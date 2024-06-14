@@ -173,8 +173,8 @@ export const TextToSpeechComponents = () => {
         {audioContent && (
           <audio ref={audioRef} controls>
             <source
-              src={`data:audio/wav;base64,${audioContent}`}
-              type="audio/wav"
+              src={`data:audio/mp3;base64,${audioContent}`}
+              type="audio/mp3"
             />
             Your browser does not support the audio element.
           </audio>

@@ -76,12 +76,18 @@ const UsersListComponents = () => {
         </div>
       </div>
       <div className="w-full h-auto flex flex-col gap-5">
-        <Link to={"/addusers"}>
-          <button className="mr-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mt-5">
-            Add New
-          </button>{" "}
-        </Link>
-        <table className="w-full bg-white border border-gray-200 rounded-lg shadow-lg">
+        <div className="">
+          <Link to={"/addusers"}>
+            <button className="mr-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mt-5">
+              Add New
+            </button>{" "}
+          </Link>
+        </div>
+
+        <table
+          className=" bg-white border border-gray-200 rounded-lg shadow-lg"
+          style={{ width: "99%" }}
+        >
           <thead>
             <tr className="bg-gray-100 text-left text-gray-600 uppercase text-sm leading-normal">
               <th className="py-3 px-6">No</th>

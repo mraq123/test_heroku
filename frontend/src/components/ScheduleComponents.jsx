@@ -90,15 +90,18 @@ const ScheduleComponents = () => {
         </div>
       </div>
       <div className="w-full h-auto flex flex-col gap-5">
-        <Link to={"/addschedule"}>
-          <button className="mr-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mt-5">
-            Add New
-          </button>
-        </Link>
+        <div className="">
+          <Link to={"/addschedule"}>
+            <button className="mr-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mt-5">
+              Add New
+            </button>
+          </Link>
+        </div>
+
         {error && <div className="text-red-500 mt-2">Error: {error}</div>}
         <table
           className=" bg-white border border-gray-200 rounded-lg shadow-lg"
-          style={{ width: "auto", padding: "10px" }}
+          style={{ width: "99%", padding: "10px" }}
         >
           <thead>
             <tr className="bg-gray-100 text-left text-gray-600 uppercase text-sm leading-normal">

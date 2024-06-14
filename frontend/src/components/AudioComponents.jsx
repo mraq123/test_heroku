@@ -85,14 +85,17 @@ export const AudioComponents = () => {
         </div>
       </div>
       <div className=" h-auto flex flex-col gap-5">
-        <Link to={"/addaudio"}>
-          <button className="mr-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mt-5">
-            Add New
-          </button>
-        </Link>
+        <div className="">
+          <Link to={"/addaudio"}>
+            <button className="mr-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mt-5">
+              Add New
+            </button>
+          </Link>
+        </div>
+
         <table
           className=" bg-white border border-gray-200 rounded-lg shadow-lg"
-          style={{ width: "100%", padding: "10px", height: "auto" }}
+          style={{ width: "99%", padding: "10px", height: "auto" }}
         >
           <thead>
             <tr className="bg-gray-100 text-left text-gray-600 uppercase text-sm leading-normal">
