@@ -8,7 +8,7 @@ const LibraryComponents = () => {
 
   const getApiLibrary = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/audio");
+      const response = await axios.get("https://be-node.vercel.app/audio");
       setGetLibrary(response.data);
     } catch (error) {
       console.log(error.data);

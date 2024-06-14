@@ -13,7 +13,7 @@ const PlayTimeComponents = () => {
   // Fungsi untuk mendapatkan jadwal dari API
   const getApiSchedule = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/schedule");
+      const response = await axios.get("https://be-node.vercel.app/schedule");
       const data = response.data;
       setGetPlayTime(data);
       // Menyimpan data ke local storage
@@ -27,27 +27,6 @@ const PlayTimeComponents = () => {
   useEffect(() => {
     getApiSchedule();
   }, []);
-
-  // Memeriksa dan memainkan audio sesuai jadwal setiap menit
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     checkAndPlayAudio();
-  //   }, 50000); // Memeriksa setiap menit
-  //   return () => clearInterval(interval);
-  // }, [getPlayTime]);
-
-  // // Fungsi untuk memeriksa dan memainkan audio jika waktunya sesuai dengan jadwal
-  // const checkAndPlayAudio = () => {
-  //   const currentTime = new Date();
-  //   const currentHour = currentTime.getHours();
-  //   const currentMinute = currentTime.getMinutes();
-  //   getPlayTime.forEach((sc, index) => {
-  //     const [scheduleHour, scheduleMinute] = sc.jam.split(":").map(Number);
-  //     if (scheduleHour === currentHour && scheduleMinute === currentMinute) {
-  //       playAudio(index);
-  //     }
-  //   });
-  // };
 
   // Fungsi untuk mengkonversi buffer menjadi URL audio
   const convertBufferToAudio = (buffer) => {

@@ -24,7 +24,7 @@ export const TextToSpeechComponents = () => {
   };
 
   const handleTextToSpeech = async () => {
-    const url = "http://localhost:5000/api/text-to-speech";
+    const url = "https://be-node.vercel.app/api/text-to-speech";
 
     try {
       const response = await axios.post(url, { text, voiceType });

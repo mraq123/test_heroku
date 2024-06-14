@@ -12,7 +12,13 @@ const ScheduleComponents = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/me");
+        const xid = sessionStorage.getItem("id");
+        if (!xid) {
+          navigate("/");
+        }
+        const response = await axios.get(
+          "https://be-node.vercel.app/me/" + xid
+        );
         setUserData(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -31,7 +37,7 @@ const ScheduleComponents = () => {
 
   const scheduleList = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/schedule");
+      const response = await axios.get("https://be-node.vercel.app/schedule");
       setSchedule(response.data);
       // console.log(response.data);
     } catch (error) {
@@ -39,35 +45,9 @@ const ScheduleComponents = () => {
     }
   };
 
-  const GetMe = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/me");
-      console.log(response.data);
-      return response.data;
-    } catch (error) {
-      if (error.response) {
-        setError(error.response.data.message);
-      } else if (error.request) {
-        setError("No response from server");
-      } else {
-        setError("An error occurred during login");
-      }
-    }
-  };
-
   useEffect(() => {
     scheduleList();
   }, []);
-
-  useEffect(() => {
-    GetMe();
-  }, []);
-
-  useEffect(() => {
-    if (error) {
-      navigate("/");
-    }
-  });
 
   const convertBufferToAudio = (buffer) => {
     // Konversi buffer ke Uint8Array
@@ -84,7 +64,7 @@ const ScheduleComponents = () => {
     const isConfirmed = window.confirm("Apakah kamu ingin menghapus Schedule?");
     if (isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/schedule/${id}`);
+        await axios.delete(`https://be-node.vercel.app/schedule/${id}`);
 
         setSchedule(schedule.filter((sc) => sc.id !== id));
 

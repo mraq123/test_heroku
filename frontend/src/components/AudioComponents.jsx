@@ -7,11 +7,10 @@ export const AudioComponents = () => {
   const [getAudio, setAudio] = useState([]);
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
 
   const getAllDataudio = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/audio"); // Ganti URL sesuai dengan endpoint backend Anda
+      const response = await axios.get("https://be-node.vercel.app/audio"); // Ganti URL sesuai dengan endpoint backend Anda
       setAudio(response.data);
       console.log(response.data);
     } catch (error) {
@@ -38,7 +37,7 @@ export const AudioComponents = () => {
     const isConfirmed = window.confirm("Apakah kamu ingin menghapus audio?");
     if (isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/audio/${audioId}`);
+        await axios.delete(`https://be-node.vercel.app/audio/${audioId}`);
         getAllDataudio();
       } catch (error) {
         console.error("Error deleting user:", error);
@@ -49,7 +48,13 @@ export const AudioComponents = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/me");
+        const xid = sessionStorage.getItem("id");
+        if (!xid) {
+          navigate("/");
+        }
+        const response = await axios.get(
+          "https://be-node.vercel.app/me/" + xid
+        );
         setUserData(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -65,32 +70,6 @@ export const AudioComponents = () => {
       navigate("/dashboard");
     }
   }, [userData, navigate]);
-
-  const GetMe = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/me");
-      console.log(response.data);
-      return response.data;
-    } catch (error) {
-      if (error.response) {
-        setError(error.response.data.message);
-      } else if (error.request) {
-        setError("No response from server");
-      } else {
-        setError("An error occurred during login");
-      }
-    }
-  };
-
-  useEffect(() => {
-    GetMe();
-  }, []);
-
-  useEffect(() => {
-    if (error) {
-      navigate("/");
-    }
-  });
 
   return (
     <div className=" w-full h-auto">

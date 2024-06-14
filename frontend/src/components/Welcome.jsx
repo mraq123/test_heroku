@@ -10,16 +10,24 @@ import Lottie from "lottie-react";
 import { FaCalendarDays } from "react-icons/fa6";
 import Amegaphone from "../assets/animation.json";
 import AText from "../assets/chart.json";
+import { useNavigate } from "react-router-dom";
 const Welcome = () => {
   const [data, setData] = useState();
   const [getUser, setGetUser] = useState();
   const [getAudio, setGetAudio] = useState();
   const [getLibrary, setGetLibrary] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/me");
+        const xid = sessionStorage.getItem("id");
+        if (!xid) {
+          navigate("/");
+        }
+        const response = await axios.get(
+          "https://be-node.vercel.app/me/" + xid
+        );
         setData(response.data);
         // console.log(response.data);
       } catch (error) {
@@ -33,7 +41,7 @@ const Welcome = () => {
   useEffect(() => {
     const getDataUserDash = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/users");
+        const response = await axios.get("https://be-node.vercel.app/users");
         setGetUser(response.data);
         // console.log(response.data.length);
       } catch (error) {
@@ -47,7 +55,7 @@ const Welcome = () => {
   useEffect(() => {
     const getDataAudioDash = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/audio");
+        const response = await axios.get("https://be-node.vercel.app/audio");
         setGetAudio(response.data);
         // console.log(response.data.length);
       } catch (error) {
@@ -61,7 +69,7 @@ const Welcome = () => {
   useEffect(() => {
     const getDataLibraryDash = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/schedule");
+        const response = await axios.get("https://be-node.vercel.app/schedule");
         setGetLibrary(response.data);
         // console.log(response.data.length);
       } catch (error) {

@@ -21,7 +21,13 @@ const Sidebar = () => {
     // Assume you have an endpoint to get the logged-in user's information
     const fetchUserRole = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/me"); // Adjust the endpoint accordingly
+        const xid = sessionStorage.getItem("id");
+        if (!xid) {
+          navigate("/");
+        }
+        const response = await axios.get(
+          "https://be-node.vercel.app/me/" + xid
+        ); // Adjust the endpoint accordingly
         setUserRole(response.data.user.role);
       } catch (error) {
         console.error("Failed to fetch user role:", error);
@@ -32,14 +38,8 @@ const Sidebar = () => {
   }, []);
 
   const Logout = async () => {
-    try {
-      await axios.delete("http://localhost:5000/logout");
-      alert("Berhasil Logout");
-      navigate("/"); // Navigate to the login page
-    } catch (error) {
-      console.error("Failed to logout:", error);
-      // Optionally, handle the error (e.g., display an error message)
-    }
+    sessionStorage.removeItem("xid");
+    navigate("/");
   };
   return (
     <div>

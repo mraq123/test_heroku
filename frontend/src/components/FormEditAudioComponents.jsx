@@ -11,7 +11,9 @@ const FormEditAudioComponents = () => {
   useEffect(() => {
     const getAudioById = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/audio/${id}`);
+        const response = await axios.get(
+          `https://be-node.vercel.app/audio/${id}`
+        );
         console.log(response.data);
         setAudioName(response.data.audio);
         setKeteranganAudio(response.data.keteranganAudio);
@@ -35,7 +37,7 @@ const FormEditAudioComponents = () => {
     formData.append("keterangan_audio", keteranganAudio); // Ensure this matches the backend key
 
     try {
-      await axios.patch(`http://localhost:5000/audio/${id}`, formData, {
+      await axios.patch(`https://be-node.vercel.app/audio/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

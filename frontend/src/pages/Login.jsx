@@ -14,12 +14,13 @@ const Login = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/login", {
+      const response = await axios.post("https://be-node.vercel.app/login", {
         email,
         password,
       });
       console.log(response.data);
       alert("Berhasil Login");
+      sessionStorage.setItem("id", response.data.id);
       navigate("/dashboard");
       return response.data;
     } catch (error) {
@@ -60,7 +61,7 @@ const Login = () => {
           />
           <div className="mt-7">
             <h2 className="font-bold text-white">
-              LOGIN SMART AUDIO ANNOUNCER <br /> MAKING BIG THINGS AND TO EASIER{" "}
+              LOGIN SIAMI ANNOUNCER <br /> MAKING BIG THINGS AND TO EASIER{" "}
               <br /> AND MORE FUN{" "}
             </h2>
           </div>

@@ -2,23 +2,26 @@ import { useNavigate } from "react-router-dom";
 import ScheduleComponents from "../components/ScheduleComponents";
 import Layout from "./Layout";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const Schedule = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
   const GetMe = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/me");
+      const xid = sessionStorage.getItem("id");
+      if (!xid) {
+        navigate("/");
+      }
+      const response = await axios.get("https://be-node.vercel.app/me/" + xid);
       // console.log(response.data);
       return response.data;
     } catch (error) {
       if (error.response) {
-        setError(error.response.data.message);
+        console.log(error.response.data.message);
       } else if (error.request) {
-        setError("No response from server");
+        console.log("No response from server");
       } else {
-        setError("An error occurred during login");
+        console.log("An error occurred during login");
       }
     }
   };
@@ -27,11 +30,6 @@ const Schedule = () => {
     GetMe();
   }, []);
 
-  useEffect(() => {
-    if (error) {
-      navigate("/");
-    }
-  });
   return (
     <Layout>
       <ScheduleComponents />

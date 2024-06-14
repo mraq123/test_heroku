@@ -7,12 +7,17 @@ const UsersListComponents = () => {
   const [getUsers, setGetUsers] = useState();
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/me");
+        const xid = sessionStorage.getItem("id");
+        if (!xid) {
+          navigate("/");
+        }
+        const response = await axios.get(
+          "https://be-node.vercel.app/me/" + xid
+        );
         setUserData(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -32,7 +37,7 @@ const UsersListComponents = () => {
   // get data
   const userList = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/users");
+      const response = await axios.get("https://be-node.vercel.app/users");
       setGetUsers(response.data);
       // console.log(response.data);
     } catch (error) {
@@ -49,7 +54,7 @@ const UsersListComponents = () => {
     const isConfirmed = window.confirm("Apakah kamu ingin menghapus user?");
     if (isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/users/${userId}`);
+        await axios.delete(`https://be-node.vercel.app/users/${userId}`);
         userList();
       } catch (error) {
         console.error("Error deleting user:", error);
@@ -57,31 +62,6 @@ const UsersListComponents = () => {
     }
   };
 
-  const GetMe = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/me");
-      console.log(response.data);
-      return response.data;
-    } catch (error) {
-      if (error.response) {
-        setError(error.response.data.message);
-      } else if (error.request) {
-        setError("No response from server");
-      } else {
-        setError("An error occurred during login");
-      }
-    }
-  };
-
-  useEffect(() => {
-    GetMe();
-  }, []);
-
-  useEffect(() => {
-    if (error) {
-      navigate("/");
-    }
-  });
   return (
     <div className="w-full h-auto flex flex-col ">
       <div className="flex gap-2">

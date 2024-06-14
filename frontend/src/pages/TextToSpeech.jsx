@@ -6,23 +6,27 @@ import axios from "axios";
 
 export const TextToSpeech = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
+
   const [text, setText] = useState("");
   const [audioUrl, setAudioUrl] = useState("");
   const [audioPlayed, setAudioPlayed] = useState(false);
 
   const GetMe = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/me");
+      const xid = sessionStorage.getItem("id");
+      if (!xid) {
+        navigate("/");
+      }
+      const response = await axios.get("https://be-node.vercel.app/me/" + xid);
       console.log(response.data);
       return response.data;
     } catch (error) {
       if (error.response) {
-        setError(error.response.data.message);
+        console.log(error.response.data.message);
       } else if (error.request) {
-        setError("No response from server");
+        console.log("No response from server");
       } else {
-        setError("An error occurred during login");
+        console.log("An error occurred during login");
       }
     }
   };
@@ -31,16 +35,10 @@ export const TextToSpeech = () => {
     GetMe();
   }, []);
 
-  useEffect(() => {
-    if (error) {
-      navigate("/");
-    }
-  }, [error, navigate]);
-
   const handleConvert = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/tts",
+        "https://be-node.vercel.app/tts",
         { text },
         { responseType: "blob" }
       );
@@ -50,7 +48,7 @@ export const TextToSpeech = () => {
       setAudioUrl(url);
     } catch (error) {
       console.error("Error converting text to speech:", error);
-      setError("Error converting text to speech");
+      console.log("Error converting text to speech");
     }
   };
 

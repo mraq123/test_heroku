@@ -22,7 +22,7 @@ function App() {
 
   const getApiSchedule = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/schedule");
+      const response = await axios.get("https://be-node.vercel.app/schedule");
       const data = response.data;
       setGetPlayTime(data);
 

@@ -18,7 +18,13 @@ const FormEditProfileComponents = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/me");
+        const xid = sessionStorage.getItem("id");
+        if (!xid) {
+          navigate("/");
+        }
+        const response = await axios.get(
+          "https://be-node.vercel.app/me/" + xid
+        );
         setUser({ ...response.data.user, password: "", confirmPassword: "" });
         console.log(response.data);
       } catch (err) {
@@ -43,8 +49,12 @@ const FormEditProfileComponents = () => {
     }
 
     try {
+      const xid = sessionStorage.getItem("id");
+      if (!xid) {
+        navigate("/");
+      }
       const response = await axios.patch(
-        "http://localhost:5000/updateprofile",
+        "https://be-node.vercel.app/updateprofile/" + xid,
         user
       );
       alert("Berhasil Update Profile");

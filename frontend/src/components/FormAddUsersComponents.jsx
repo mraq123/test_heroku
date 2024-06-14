@@ -20,7 +20,7 @@ const FormAddUsersComponents = () => {
         confirmPassword,
         role,
       };
-      await axios.post("http://localhost:5000/users", userData);
+      await axios.post("https://be-node.vercel.app/users", userData);
       alert("Berhasil Menambah User");
       navigate("/users");
     } catch (error) {

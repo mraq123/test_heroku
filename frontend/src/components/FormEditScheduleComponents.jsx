@@ -13,7 +13,7 @@ function FormEditScheduleComponents() {
 
   const getDataAudioName = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/audio");
+      const response = await axios.get("https://be-node.vercel.app/audio");
       setAudio(response.data);
       console.log(response.data);
     } catch (error) {
@@ -23,7 +23,9 @@ function FormEditScheduleComponents() {
 
   const getScheduleById = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:5000/schedule/${id}`);
+      const response = await axios.get(
+        `https://be-node.vercel.app/schedule/${id}`
+      );
       const schedule = response.data;
       setTime(schedule.jam);
       setKeteranganSchedule(schedule.keterangan_schedule);
@@ -52,7 +54,10 @@ function FormEditScheduleComponents() {
       };
 
       // Update existing schedule
-      await axios.patch(`http://localhost:5000/schedule/${id}`, scheduleData);
+      await axios.patch(
+        `https://be-node.vercel.app/schedule/${id}`,
+        scheduleData
+      );
       alert("Berhasil Edit Schedule");
       navigate("/schedule");
       window.location.reload();

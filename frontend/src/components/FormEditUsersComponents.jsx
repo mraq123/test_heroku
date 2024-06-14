@@ -15,7 +15,9 @@ const FormEditUsersComponents = () => {
   useEffect(() => {
     const getUsersById = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/users/${id}`);
+        const response = await axios.get(
+          `https://be-node.vercel.app/users/${id}`
+        );
         setUsername(response.data.username);
         setEmail(response.data.email);
 
@@ -39,7 +41,7 @@ const FormEditUsersComponents = () => {
         confirmPassword,
         role,
       };
-      await axios.patch(`http://localhost:5000/users/${id}`, userData);
+      await axios.patch(`https://be-node.vercel.app/users/${id}`, userData);
       alert("Berhasil Update User");
       navigate("/users");
     } catch (error) {

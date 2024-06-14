@@ -1,13 +1,19 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BsFillMegaphoneFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [user, setUser] = useState();
+  const navigate = useNavigate();
 
   const GetMe = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/me");
+      const xid = sessionStorage.getItem("id");
+      if (!xid) {
+        navigate("/");
+      }
+      const response = await axios.get("https://be-node.vercel.app/me/" + xid);
       setUser(response.data);
       // console.log("NAVBAR", response.data);
       return response.data;

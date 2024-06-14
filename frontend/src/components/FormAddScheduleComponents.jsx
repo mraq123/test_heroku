@@ -12,7 +12,7 @@ function FormAddScheduleComponents() {
 
   const getDataAudioName = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/audio");
+      const response = await axios.get("https://be-node.vercel.app/audio");
       setAudio(response.data);
       // console.log(response.data);
     } catch (error) {
@@ -30,7 +30,7 @@ function FormAddScheduleComponents() {
     console.log("Selected Audio ID:", audioId); // Catat audioId yang dipilih
 
     try {
-      const response = await axios.post("http://localhost:5000/schedule", {
+      const response = await axios.post("https://be-node.vercel.app/schedule", {
         jam: time,
         keterangan_schedule: keteranganSchedule,
         audioId,
