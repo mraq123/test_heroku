@@ -38,7 +38,7 @@ const Sidebar = () => {
   }, []);
 
   const Logout = async () => {
-    sessionStorage.removeItem("xid");
+    sessionStorage.removeItem("id");
     navigate("/");
   };
   return (
